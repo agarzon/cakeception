@@ -62,13 +62,13 @@ class CakeCeption {
 	/**
 	 * Sends a request to a given {controller}/{action}
 	 *
-	 * @param string $url
+	 * @param string $pointer
 	 * @return $this CakeCeption
 	 */
-	public function request($url)
+	public function request($pointer)
 	{
-		$this->controllerName = $this->parseController($url);
-		$this->controllerAction = $this->parseControllerAction($url);
+		$this->controllerName = $this->parseController($pointer);
+		$this->controllerAction = $this->parseControllerAction($pointer);
 
 		$this->request->params = [
 			'controller' => $this->controllerName,
@@ -155,7 +155,7 @@ class CakeCeption {
 	 */
 	protected function parseController($string)
 	{
-		return ucfirst(explode('/', $string)[0]) . 'Controller';
+		return explode('@', $string)[0] . 'Controller';
 	}
 
 	/**
@@ -166,7 +166,7 @@ class CakeCeption {
 	 */
 	protected function parseControllerAction($string)
 	{
-		$string = explode('/', $string);
+		$string = explode('@', $string);
 
 		return ! isset($string[1]) ? 'index' : $string[1];
 	}

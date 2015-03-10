@@ -27,7 +27,7 @@ Currently we can only use this tool to test controllers, and normally we would s
 Since we're running Codeception in CGI, we simply don't have HTTP environment variables avaialble in the testing suite. In order to emulatean HTTP kind of environment, we simply need to define them using the `request` method. You can refer to PHP's [$_SERVER](http://php.net/manual/en/reserved.variables.server.php) to know what variables you can use.
 
 ```php
-$controller = $this->cakception->request('foo/bar')
+$controller = $this->cakception->request('Foo@bar')
     ->headers(['REQUEST_METHOD' => 'POST', 'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest']);
 //...
 ```
@@ -43,7 +43,7 @@ $controller->controller->request->is('ajax');
 It can't be a complete request without parameters yes? To add parameters just simply invoke `parameters` wherever you like.
 
 ```php
-$controller = $this->cakeception->request('foo/bar')
+$controller = $this->cakeception->request('Foo@bar')
     ->headers(['REQUEST_METHOD' => 'POST', 'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'])
     ->parameters([
         'data' => [
@@ -61,7 +61,7 @@ Honestly, it can't be helped that I find it odd to use one super array to contai
 For the love of OOP who doesn't define properties to be used all over their project. For that we can use the `properties` method.
 
 ```php
-$controller = $this->cakeception->request('foo/bar')
+$controller = $this->cakeception->request('Foo@bar')
     ->headers(['REQUEST_METHOD' => 'POST', 'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'])
     ->parameters([
         'data' => [
@@ -83,7 +83,7 @@ If you may be asking, what can define in the properties method? One answer, *ANY
 After you're satisfied in defining the needed variables/prerequisites. You can now execute the action by calling `execute`.
 
 ```php
-$controller = $this->cakeception->request('foo/bar')
+$controller = $this->cakeception->request('Foo@bar')
     ->headers(['REQUEST_METHOD' => 'POST', 'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'])
     ->parameters([
         'data' => [
