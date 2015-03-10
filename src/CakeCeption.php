@@ -26,10 +26,27 @@ class CakeCeption {
 	protected $request;
 
 	/**
-	 * AppController container
+	 * Controller container
 	 *
-	 * @var \AppController
+	 * @var \{controllerName}Controller
 	 */
+	protected $controller;
+
+	/**
+	 * Controller Name
+	 *
+	 * @var string
+	 * @access protected
+	 */
+	protected $controllerName;
+
+	/**
+	 * Controller Action
+	 *
+	 * @var string
+	 * @access protected
+	 */
+	protected $controllerAction;
 
 	/**
 	 * Initialize the class
@@ -43,14 +60,29 @@ class CakeCeption {
 	}
 
 	/**
-	 * Sends a request to a given URL to be parsed by
+	 * Sends a request to a given {controller}/{action}
 	 *
 	 * @param string $url
-	 * @param array $headers [see $detecters in CakeRequest]
-	 * @param array $params
-	 * @return array
+	 * @return $this CakeCeption
 	 */
-	public function requestToController($url, $headers, $params = [])
+	public function request($url)
+	{
+		$this->controllerName = $this->parseController($url);
+		$this->controllerAction = $this->parseControllerAction($url);
+
+		App::uses($this->controllerName, 'Controller');
+		$this->controller = new $this->controllerName($this->request);
+
+		return $this;
+	}
+
+	/**
+	 * Apply headers to the request
+	 *
+	 * @param array $headers
+	 * @return $this CakeCeption
+	 */
+	public function headers($headers)
 	{
 		foreach($headers as $method => $value) {
 			// since we're running from cgi
@@ -59,13 +91,21 @@ class CakeCeption {
 			$this->writeServerVars($method, $value);
 		}
 
-		$controllerName = $this->parseController($url);
-		$controllerAction = $this->parseControllerAction($url);
+		return $this;
+	}
 
+	/**
+	 * Apply parameters to the request
+	 *
+	 * @param array $params
+	 * @return $this CakeCeption
+	 */
+	public function params($params)
+	{
 		$params = array_key_exists('params', $params) && count($params['params']) > 0 ? $params['params'] : [];
 		$this->request->params = array_merge([
-			'controller' => $controllerName,
-			'action' => $controllerAction,
+			'controller' => $this->controllerName,
+			'action' => $this->controllerAction,
 			'pass' => [],
 			'named' => []
 		], $params);
@@ -75,13 +115,34 @@ class CakeCeption {
 			'data' => $data
 		];
 
-		App::uses($controllerName, 'Controller');
-		
-		$controller = new $controllerName($this->request);
-		$controller->constructClasses();
-		$controller->$controllerAction();
+		return $this;
+	}
 
-		return $controller->viewVars;
+	/**
+	 * Apply on-the-fly properties to the controller
+	 *
+	 * @param array $properties
+	 */
+	public function properties($properties)
+	{
+		foreach($properties as $property => $value) {
+			$this->controller->{$property} = $value;
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Executes the controller action
+	 *
+	 * @return array
+	 */
+	public function execute()
+	{
+		$this->controller->constructClasses();
+		$this->controller->invokeAction($this->request);
+
+		return $this->controller;
 	}
 
 	/**
