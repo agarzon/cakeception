@@ -1,0 +1,16 @@
+{
+    "name": "hkzpjt/cakeception",
+    "description": "Integrate Codeception to CakePHP v2.* projects",
+
+    "authors": [
+        {
+            "name": "rupaheizu",
+            "email": "rupaheizu@hkz.io"
+        }
+    ],
+
+    "require": {
+        "php": ">=5.4.0"
+    }
+
+}
