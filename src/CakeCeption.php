@@ -11,10 +11,7 @@
  * @package CakeCeption
  */
 
-App::uses('ClassRegistry', 'Utility');
 App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-App::uses('Router', 'Routing');
 
 class CakeCeption {
 
