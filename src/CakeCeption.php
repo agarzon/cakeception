@@ -70,6 +70,13 @@ class CakeCeption {
 		$this->controllerName = $this->parseController($url);
 		$this->controllerAction = $this->parseControllerAction($url);
 
+		$this->request->params = [
+			'controller' => $this->controllerName,
+			'action' => $this->controllerAction,
+			'pass' => [],
+			'named' => []
+		];
+
 		App::uses($this->controllerName, 'Controller');
 		$this->controller = new $this->controllerName($this->request);
 
@@ -103,12 +110,7 @@ class CakeCeption {
 	public function params($params)
 	{
 		$params = array_key_exists('params', $params) && count($params['params']) > 0 ? $params['params'] : [];
-		$this->request->params = array_merge([
-			'controller' => $this->controllerName,
-			'action' => $this->controllerAction,
-			'pass' => [],
-			'named' => []
-		], $params);
+		array_merge($this->request->params, $params);
 
 		$data = array_key_exists('data', $params) && count($params['data']) > 0 ? $params['data'] : [];
 		$this->request->query = [
