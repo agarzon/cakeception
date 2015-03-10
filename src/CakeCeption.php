@@ -109,8 +109,8 @@ class CakeCeption {
 	 */
 	public function params($params)
 	{
-		$params = array_key_exists('params', $params) && count($params['params']) > 0 ? $params['params'] : [];
-		array_merge($this->request->params, $params);
+		$innerParams = array_key_exists('params', $params) && count($params['params']) > 0 ? $params['params'] : [];
+		$this->request->params = array_merge($this->request->params, $innerParams);
 
 		$data = array_key_exists('data', $params) && count($params['data']) > 0 ? $params['data'] : [];
 		$this->request->query = [
