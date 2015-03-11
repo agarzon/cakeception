@@ -116,7 +116,7 @@ class CakeCeption {
 			'data' => $data
 		];
 
-		if ( count($query) > 0 ) {
+		if ( count($queries) > 0 ) {
 			$this->request->query = array_merge($this->request->query, $queries);
 		}
 
