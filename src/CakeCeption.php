@@ -82,7 +82,27 @@ class CakeCeption {
 	}
 
 	/**
+	 * Apply cookies to the request
+	 * --
+	 * There will be no traces of the $_COOKIE var in CGI
+	 *
+	 * @param array $cookies
+	 * @return $this CakeCeption
+	 */
+	public function cookies($cookies)
+	{
+		foreach($cookies as $cookie => $value)
+		{
+			$this->writeCookieVars($cookie, $value);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Apply headers to the request
+	 * --
+	 * There will be no traces of HTTP related $_SERVER vars in CGI
 	 *
 	 * @param array $headers
 	 * @return $this CakeCeption
@@ -90,9 +110,6 @@ class CakeCeption {
 	public function headers($headers)
 	{
 		foreach($headers as $method => $value) {
-			// since we're running from cgi
-			// there will be no traces of any http headers in the $_SERVER var
-			// we need to write them manually
 			$this->writeServerVars($method, $value);
 		}
 
@@ -172,6 +189,17 @@ class CakeCeption {
 		$string = explode('@', $string);
 
 		return ! isset($string[1]) ? 'index' : $string[1];
+	}
+
+	/**
+	 * Writes _COOKIE variables
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+	protected function writeCookieVars($key, $value)
+	{
+		$_COOKIE[$key] = $value;
 	}
 
 	/**
