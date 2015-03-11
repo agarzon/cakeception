@@ -128,7 +128,33 @@ class CakeCeption {
 		}
 
 		return $this;
-	} 
+	}
+    
+    /**
+     * Apply queries to the request
+     * 
+     * @param array $queries
+     * @return $this CakeCeption
+     */
+    public function queries(array $queries)
+    {
+        $this->request->query = array_merge($this->request->query, $queries);
+        
+        return $this;
+    }
+    
+    /**
+     * Apply data to the request
+     * 
+     * @param array $data
+     * @return $this CakeCeption
+     */
+    public function data(array $data)
+    {
+        $this->request->query = array_merge($this->request->query, $data);
+        
+        return $this;
+    }
 
 	/**
 	 * Apply parameters to the request
@@ -136,20 +162,9 @@ class CakeCeption {
 	 * @param array $params
 	 * @return $this CakeCeption
 	 */
-	public function params($params)
+	public function params(array $params)
 	{
-		$innerParams = array_key_exists('params', $params) && count($params['params']) > 0 ? $params['params'] : [];
-		$this->request->params = array_merge($this->request->params, $innerParams);
-
-		$data = array_key_exists('data', $params) && count($params['data']) > 0 ? $params['data'] : []; // POST DATA
-		$queries = array_key_exists('queries', $params) && count($params['queries']) > 0 ? $params['queries'] : []; // GET DATA
-		$this->request->query = [
-			'data' => $data
-		];
-
-		if ( count($queries) > 0 ) {
-			$this->request->query = array_merge($this->request->query, $queries);
-		}
+		$this->request->params = array_merge($this->request->params, $params);
 
 		return $this;
 	}
