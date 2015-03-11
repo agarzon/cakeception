@@ -11,6 +11,7 @@
  * @package CakeCeption
  */
 
+App::uses('Router', 'Routing');
 App::uses('CakeRequest', 'Network');
 
 class CakeCeption {
@@ -109,10 +110,15 @@ class CakeCeption {
 		$innerParams = array_key_exists('params', $params) && count($params['params']) > 0 ? $params['params'] : [];
 		$this->request->params = array_merge($this->request->params, $innerParams);
 
-		$data = array_key_exists('data', $params) && count($params['data']) > 0 ? $params['data'] : [];
+		$data = array_key_exists('data', $params) && count($params['data']) > 0 ? $params['data'] : []; // POST DATA
+		$queries = array_key_exists('queries', $params) && count($params['queries']) > 0 ? $params['queries'] : []; // GET DATA
 		$this->request->query = [
 			'data' => $data
 		];
+
+		if ( count($query) > 0 ) {
+			$this->request->query = array_merge($this->request->query, $queries);
+		}
 
 		return $this;
 	}
