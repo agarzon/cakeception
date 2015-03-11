@@ -117,6 +117,20 @@ class CakeCeption {
 	}
 
 	/**
+	 * Run the before filter of the current controller
+	 *
+	 * @return $this CakeCeption
+	 */
+	public function beforeFilter()
+	{
+		if ( method_exists($this->controller, 'beforeFilter') ) {
+			$this->controller->beforeFilter();
+		}
+
+		return $this;
+	} 
+
+	/**
 	 * Apply parameters to the request
 	 *
 	 * @param array $params
