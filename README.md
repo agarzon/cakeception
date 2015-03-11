@@ -42,8 +42,8 @@ $controller->controller->request->is('post');
 $controller->controller->request->is('ajax');
 ```
 
-#### Parameters
-It can't be a complete request without parameters yes? To add parameters just simply invoke `parameters` wherever you like.
+#### Params
+Params are for the `params` variable of the `CakeRequest` object. It contains system defined parameters.
 
 ```php
 $controller = $this->cakeception->request('Foo@bar')
@@ -51,23 +51,46 @@ $controller = $this->cakeception->request('Foo@bar')
         'REQUEST_METHOD' => 'POST',
         'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
     ])
-    ->parameters([
-        'queries' => [
-            'edit' => 'profile'
-        ],
-        'data' => [
-            'Model' => [
-                'someColumn' => 'someValue'
-            ]
-        ]
+    ->params([
+        'id' => 1
     ]);
 //...
 ```
 
-Honestly, it can't be helped that I find it odd to use one super array to contain all request input. But whatever, it's a problem needs to be solved. In the code example above, we've appended the example in the headers with some paranters. Indicating that we're updating a value of a column of a model. The rest is self explanatory.
+#### Queries
+Queries are for the `query` variable of the `CakeRequest` object. They're the GET variables.
 
-* `queries` are the `_GET` data.
-* `params` are internal configured paramters
+```php
+$controller = $this->cakeception->request('Foo@bar')
+    ->headers([
+        'REQUEST_METHOD' => 'POST',
+        'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    ])
+    ->queries([
+        'edit' => 'profile'
+    ]);
+//...
+```
+
+#### Data
+Data is for the `query[data]` variable of the `CakeRequest` object. They're the POST variables.
+
+```php
+$controller = $this->cakeception->request('Foo@bar')
+    ->headers([
+        'REQUEST_METHOD' => 'POST',
+        'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    ])
+    ->queries([
+        'edit' => 'profile'
+    ])
+    ->data([
+        'Model' => [
+            'someColum' => 'someValue'
+        ]
+    ]);
+//...
+```
 
 #### Properties
 For the love of OOP who doesn't define properties to be used all over their project. For that we can use the `properties` method.
@@ -78,14 +101,12 @@ $controller = $this->cakeception->request('Foo@bar')
         'REQUEST_METHOD' => 'POST',
         'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
     ])
-    ->parameters([
-        'queries' => [
-            'edit' => 'profile'
-        ],
-        'data' => [
-            'Model' => [
-                'someColumn' => 'someValue'
-            ]
+    ->queries([
+        'edit' => 'profile'
+    ])
+    ->data([
+        'Model' => [
+            'someColum' => 'someValue'
         ]
     ])
     ->properties([
@@ -106,14 +127,12 @@ $controller = $this->cakeception->request('Foo@bar')
         'REQUEST_METHOD' => 'POST',
         'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
     ])
-    ->parameters([
-        'queries' => [
-            'edit' => 'profile'
-        ],
-        'data' => [
-            'Model' => [
-                'someColumn' => 'someValue'
-            ]
+    ->queries([
+        'edit' => 'profile'
+    ])
+    ->data([
+        'Model' => [
+            'someColum' => 'someValue'
         ]
     ])
     ->properties([
