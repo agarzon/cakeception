@@ -182,6 +182,17 @@ class CakeCeption {
 	}
 
 	/**
+	 * Parses the redirect
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	public static function parseRedirect($url)
+	{
+		return $url;
+	}
+
+	/**
 	 * Parses the controller
 	 *
 	 * @param string
