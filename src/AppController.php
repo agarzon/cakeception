@@ -11,7 +11,7 @@
  * @package AppController Nullify
  */
 
-App::uses('Controller', 'Controller/AppController');
+App::uses('Controller', 'Controller');
 
 class AppController extends Controller {
 
