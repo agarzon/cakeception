@@ -7,7 +7,6 @@
  *
  * @author @rupaheizu <rupaheizu@hkz.io>
  * @copyright @rupaheizu, HkzPjt, 2015
- * @license BSD 3-Clause
  * @package CakeCeption
  */
 
