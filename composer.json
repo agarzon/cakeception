@@ -1,7 +1,8 @@
 {
     "name": "hkzpjt/cakeception",
     "description": "Integrate Codeception to CakePHP v2.* projects",
-
+    "keywords": ["cakeception", "hkz", "cakephp", "codeception"],
+    "license": ["MIT"],
     "authors": [
         {
             "name": "rupaheizu",
@@ -11,6 +12,12 @@
 
     "require": {
         "php": ">=5.4.0"
+    },
+
+     "autoload": {
+        "classmap": [
+            "src/"
+        ]
     }
 
 }
