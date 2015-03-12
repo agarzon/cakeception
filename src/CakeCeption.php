@@ -52,8 +52,58 @@ class CakeCeption {
 	 */
 	public function __construct()
 	{
-		$this->request = new CakeRequest;
 		$this->appController = new AppController;
+	}
+
+	/**
+	 * Instantiate a controller
+	 *
+	 * @param string $controller
+	 * @return $this CakeCeption
+	 */
+	public function init($controller)
+	{
+		App::uses($controller, 'Controller');
+		$this->controllerName = explode('Controller', $controller)[0];
+		$this->controller = new $controller;
+
+		return $this;
+	}
+
+	/**
+	 * Forges the mock request
+	 *
+	 * @param string $controller
+	 * @param string $action
+	 * @return Object CakeRequest
+	 */
+	protected function forgetRequest($controller, $action)
+	{
+		$this->request = new CakeRequest;
+
+		$this->request->params = [
+			'controller' => $this->controllerName,
+			'action' => $action,
+			'pass' => [],
+			'named' => []
+		];
+
+		return $this->request;
+	}
+
+	/**
+	 * The action to call form the controller
+	 *
+	 * @param string $action
+	 * @return $this CakeCeption
+	 */
+	public function call($action)
+	{
+		$this->controller = new $this->controller(
+			$this->forgetRequest($this->controllerName, $action)
+		);
+
+		return $this;
 	}
 
 	/**
@@ -67,15 +117,10 @@ class CakeCeption {
 		$this->controllerName = $this->parseController($pointer);
 		$this->controllerAction = $this->parseControllerAction($pointer);
 
-		$this->request->params = [
-			'controller' => $this->controllerName,
-			'action' => $this->controllerAction,
-			'pass' => [],
-			'named' => []
-		];
-
 		App::uses($this->controllerName, 'Controller');
-		$this->controller = new $this->controllerName($this->request);
+		$this->controller = new $this->controllerName(
+			$this->forgetRequest($this->controllerName, $this->controllerAction)
+		);
 
 		return $this;
 	}
