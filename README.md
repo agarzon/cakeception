@@ -23,6 +23,23 @@ foreach(glob(ROOT . "/tests/cake/*.php") as $lib) {
 ### Testing
 Currently we can only use this tool to test controllers, and normally we would send an HTTP request to test the functionality of the controllers. In CakeCeption, it's simply just calling `$this->cakeception->request('controller/ActionName')`. In the `request` function, we already instantiated the controller along with its components and models. And you can simply use the controller object by calling `$this->cakeception->controller`.
 
+#### Initializing
+There are two ways to initialize controllers, you can either use `request` or `init`.
+
+**Request**
+```
+$this->cakeception->request('Foo@bar');
+//...
+```
+
+**Init**
+```
+$this->cakeception->init('FooController')
+    ->call('bar')
+//...
+```
+The only difference howsoever is the way their initialized, preferably if you're only calling the controller once you'd use `request`. But if you would initialize the controller to be used by multiple methods, then it `init` would suffice.
+
 #### Headers
 Since we're running Codeception in CGI, we simply don't have HTTP environment variables avaialble in the testing suite. In order to emulatean HTTP kind of environment, we simply need to define them using the `request` method. You can refer to PHP's [$_SERVER](http://php.net/manual/en/reserved.variables.server.php) to know what variables you can use.
 
