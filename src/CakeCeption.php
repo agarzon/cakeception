@@ -77,7 +77,7 @@ class CakeCeption {
 	 * @param string $action
 	 * @return Object CakeRequest
 	 */
-	protected function forgetRequest($controller, $action)
+	protected function forgeRequest($controller, $action)
 	{
 		$this->request = new CakeRequest;
 
@@ -100,7 +100,7 @@ class CakeCeption {
 	public function call($action)
 	{
 		$this->controller = new $this->controller(
-			$this->forgetRequest($this->controllerName, $action)
+			$this->forgeRequest($this->controllerName, $action)
 		);
 
 		return $this;
@@ -119,7 +119,7 @@ class CakeCeption {
 
 		App::uses($this->controllerName, 'Controller');
 		$this->controller = new $this->controllerName(
-			$this->forgetRequest($this->controllerName, $this->controllerAction)
+			$this->forgeRequest($this->controllerName, $this->controllerAction)
 		);
 
 		return $this;
