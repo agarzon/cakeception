@@ -1,15 +1,5 @@
 <?php
 
-/**
- * CakeCeption
- * --
- * An integration tool for CakePHP v2.* to Codeception
- *
- * @author @rupaheizu <rupaheizu@hkz.io>
- * @copyright @rupaheizu, HkzPjt, 2015
- * @package CakeCeption
- */
-
 App::uses('Router', 'Routing');
 App::uses('CakeRequest', 'Network');
 
