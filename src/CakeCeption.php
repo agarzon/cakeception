@@ -163,32 +163,32 @@ class CakeCeption {
 
 		return $this;
 	}
-    
-    /**
-     * Apply queries to the request
-     * 
-     * @param array $queries
-     * @return $this CakeCeption
-     */
-    public function queries(array $queries)
-    {
-        $this->request->query = array_merge($this->request->query, $queries);
-        
-        return $this;
-    }
-    
-    /**
-     * Apply data to the request
-     * 
-     * @param array $data
-     * @return $this CakeCeption
-     */
-    public function data(array $data)
-    {
-        $this->request->query = array_merge($this->request->query, $data);
-        
-        return $this;
-    }
+	
+	/**
+	 * Apply queries to the request
+	 * 
+	 * @param array $queries
+	 * @return $this CakeCeption
+	 */
+	public function queries(array $queries)
+	{
+		$this->request->query = array_merge($this->request->query, $queries);
+		
+		return $this;
+	}
+	
+	/**
+	 * Apply data to the request
+	 * 
+	 * @param array $data
+	 * @return $this CakeCeption
+	 */
+	public function data(array $data)
+	{
+		$this->request->query = array_merge($this->request->query, $data);
+		
+		return $this;
+	}
 
 	/**
 	 * Apply parameters to the request
