@@ -1,5 +1,5 @@
 # Cakeception
-Cakeception is a DDD helper tool in testing CakePHP v2.* projects under Codeception. And yes, the project is still in active development and also can be used in your project.
+Cakeception is a DDD based helper testing suite to test CakePHP v2.* libraries independently
 
 ## Documentation
 You just need to put the two files which are `CakeCeption.php` and `AppController.php` inside of Codeception's tests folder, which we can name it with `cake`. You also need to make sure that your bootstrap file includes CakePHP's bootstrap file in order to use its internal core libraries.
