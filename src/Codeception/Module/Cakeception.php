@@ -4,7 +4,7 @@ namespace Codeception\Module;
 
 use Cakeception\Controller;
 
-class Cakeception
+class Cakeception extends Module
 {
 	protected $controller;
 
