@@ -3,6 +3,7 @@
 namespace Codeception\Module;
 
 use Cakeception\Controller;
+use Codeception\Module;
 
 class Cakeception extends Module
 {
@@ -16,5 +17,5 @@ class Cakeception extends Module
 	public function controller()
 	{
 		return $this->controller;
-	}	
+	}
 }

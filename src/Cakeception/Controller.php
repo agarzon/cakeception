@@ -2,16 +2,23 @@
 
 namespace Cakeception;
 
-App::uses('Router', 'Routing');
-App::uses('CakeRequest', 'Network');
+use Cakeception\Application;
 
 class Controller
 {
+	/**
+	 * App container
+	 *
+	 * @var Cakeception\Application
+	 * @access protected
+	 */
+	protected $app;
 
 	/**
 	 * CakeRequest container
 	 *
-	 * @var \CakeRequest;
+	 * @var \CakeRequest
+	 * @access protected
 	 */
 	protected $request;
 
@@ -45,7 +52,7 @@ class Controller
 	 */
 	public function __construct()
 	{
-		$this->appController = new AppController;
+		$this->app = new Application;
 	}
 
 	/**
@@ -56,7 +63,8 @@ class Controller
 	 */
 	public function init($controller)
 	{
-		App::uses($controller, 'Controller');
+		$this->give('Controller');
+
 		$this->controllerName = explode('Controller', $controller)[0];
 		$this->controller = new $controller;
 
@@ -72,7 +80,7 @@ class Controller
 	 */
 	protected function forgeRequest($controller, $action)
 	{
-		$this->request = new CakeRequest;
+		$this->request = $this->app->give('CakeRequest');
 
 		$this->request->params = [
 			'controller' => $this->controllerName,
