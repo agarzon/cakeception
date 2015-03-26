@@ -181,12 +181,12 @@ class Controller
 	 */
 	public function constructControllerClasses()
 	{
-		if ( property_exists($this->controller, 'uses') ) {
+		$properties = ['uses', 'components'];
 
-		}
-
-		if ( property_exists($this->controller, 'components') ) {
-
+		foreach ($properties as $property) {
+			if ( property_exists($this->controller, 'uses') ) {
+				// do here
+			}
 		}
 	}
 	
