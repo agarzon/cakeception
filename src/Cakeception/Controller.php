@@ -118,7 +118,6 @@ class Controller
 		$this->controllerName = $this->parseController($pointer);
 		$this->controllerAction = $this->parseControllerAction($pointer);
 
-		App::uses($this->controllerName, 'Controller');
 		$this->controller = new $this->controllerName(
 			$this->forgeRequest($this->controllerName, $this->controllerAction)
 		);
@@ -173,6 +172,22 @@ class Controller
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Mock Component and Model classes of the current controller
+	 *
+	 * @return void
+	 */
+	public function constructControllerClasses()
+	{
+		if ( property_exists($this->controller, 'uses') ) {
+
+		}
+
+		if ( property_exists($this->controller, 'components') ) {
+
+		}
 	}
 	
 	/**
