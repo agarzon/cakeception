@@ -17,7 +17,7 @@
 
      "autoload": {
         "psr-4": {
-            "Cakeception\\": "src/Cakception",
+            "Cakeception\\": "src/Cakeception",
             "Codeception\\Module\\": "src/Codeception/Module"
         }
     }
