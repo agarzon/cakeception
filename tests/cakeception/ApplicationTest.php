@@ -13,6 +13,15 @@ class ApplicationTest extends PHPUnit_Framework_TestCase
 
 	public function testInstance()
 	{
-		$this->assertTrue(($this->app instanceof Application));
+		$this->assertInstanceOf('Cakeception\Application', $this->app);
+	}
+
+	public function testOptionsProperty()
+	{
+		$this->app = new Application([
+			'test' => true
+		]);
+
+		$this->assertTrue($this->app->getOptions()['test']);
 	}
 }
