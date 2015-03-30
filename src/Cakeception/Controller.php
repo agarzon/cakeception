@@ -6,6 +6,7 @@ use Cakeception\Application;
 
 class Controller
 {
+
 	/**
 	 * App container
 	 *
@@ -80,9 +81,9 @@ class Controller
 	 */
 	protected function forgeRequest($controller, $action)
 	{
-		$this->request = $this->app->give('CakeRequest');
+		// $this->request = $this->app->give('CakeRequest');
 
-		$this->request->params = [
+		$this->request->params = [ // this should be mocked instead
 			'controller' => $this->controllerName,
 			'action' => $action,
 			'pass' => [],
@@ -102,24 +103,6 @@ class Controller
 	{
 		$this->controller = new $this->controller(
 			$this->forgeRequest($this->controllerName, $action)
-		);
-
-		return $this;
-	}
-
-	/**
-	 * Sends a request to a given {controller}/{action}
-	 *
-	 * @param string $pointer
-	 * @return $this CakeCeption
-	 */
-	public function request($pointer)
-	{
-		$this->controllerName = $this->parseController($pointer);
-		$this->controllerAction = $this->parseControllerAction($pointer);
-
-		$this->controller = new $this->controllerName(
-			$this->forgeRequest($this->controllerName, $this->controllerAction)
 		);
 
 		return $this;
@@ -265,52 +248,6 @@ class Controller
 	public static function parseRedirect($url)
 	{
 		return $url;
-	}
-
-	/**
-	 * Parses the controller
-	 *
-	 * @param string
-	 * @return string
-	 */
-	protected function parseController($string)
-	{
-		return explode('@', $string)[0] . 'Controller';
-	}
-
-	/**
-	 * Parses the controller
-	 *
-	 * @param string
-	 * @return string
-	 */
-	protected function parseControllerAction($string)
-	{
-		$string = explode('@', $string);
-
-		return ! isset($string[1]) ? 'index' : $string[1];
-	}
-
-	/**
-	 * Writes _COOKIE variables
-	 *
-	 * @param string $key
-	 * @param string $value
-	 */
-	protected function writeCookieVars($key, $value)
-	{
-		$_COOKIE[$key] = $value;
-	}
-
-	/**
-	 * Writes _SERVER variables
-	 *
-	 * @param string $key
-	 * @param string $value
-	 */
-	protected function writeServerVars($key, $value)
-	{
-		$_SERVER[$key] = $value;
 	}
 
 }
