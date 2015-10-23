@@ -134,6 +134,24 @@ class CakeCeption {
 	}
 
 	/**
+	 * Apply session variables to the request
+	 * --
+	 * There will be no traces of the $_SESSION var in CGI
+	 *
+	 * @param array $session_vars
+	 * @return $this CakeCeption
+	 */
+	public function session($session_vars)
+	{
+		foreach($session_vars as $session_var => $value)
+		{
+			$this->writeSessionVars($session_var, $value);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Apply headers to the request
 	 * --
 	 * There will be no traces of HTTP related $_SERVER vars in CGI
@@ -277,6 +295,17 @@ class CakeCeption {
 		$string = explode('@', $string);
 
 		return ! isset($string[1]) ? 'index' : $string[1];
+	}
+
+	/**
+	 * Writes _SESSION variables
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+	protected function writeSessionVars($key, $value)
+	{
+		$_SESSION[$key] = $value;
 	}
 
 	/**
