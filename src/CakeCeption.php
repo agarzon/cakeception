@@ -169,6 +169,17 @@ class CakeCeption {
 	}
 
 	/**
+	 * load the model associations, components, etc to be loaded
+	 *
+	 * @return $this CakeCeption
+	 */
+	public function loadAssocations()
+	{
+		$this->controller->constructClasses();
+
+		return $this;
+	}
+	/**
 	 * Run the before filter of the current controller
 	 *
 	 * @return $this CakeCeption
