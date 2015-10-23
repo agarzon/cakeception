@@ -163,6 +163,20 @@ class CakeCeption {
 
 		return $this;
 	}
+
+	/**
+	 * Run the before render of the current controller
+	 *
+	 * @return $this CakeCeption
+	 */
+	public function beforeRender()
+	{
+		if ( method_exists($this->controller, 'beforeRender') ) {
+			$this->controller->beforeRender();
+		}
+
+		return $this;
+	}
 	
 	/**
 	 * Apply queries to the request
@@ -185,7 +199,7 @@ class CakeCeption {
 	 */
 	public function data(array $data)
 	{
-		$this->request->query = array_merge($this->request->query, $data);
+		$this->request->data = array_merge($this->request->data, $data);
 		
 		return $this;
 	}
