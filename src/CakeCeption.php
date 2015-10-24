@@ -134,6 +134,24 @@ class CakeCeption {
 	}
 
 	/**
+	 * Apply session variables to the request
+	 * --
+	 * There will be no traces of the $_SESSION var in CGI
+	 *
+	 * @param array $session_vars
+	 * @return $this CakeCeption
+	 */
+	public function session($session_vars)
+	{
+		foreach($session_vars as $session_var => $value)
+		{
+			$this->writeSessionVars($session_var, $value);
+		}
+
+		return $this;
+	}
+
+	/**
 	 * Apply headers to the request
 	 * --
 	 * There will be no traces of HTTP related $_SERVER vars in CGI
@@ -151,6 +169,17 @@ class CakeCeption {
 	}
 
 	/**
+	 * load the model associations, components, etc to be loaded
+	 *
+	 * @return $this CakeCeption
+	 */
+	public function loadAssocations()
+	{
+		$this->controller->constructClasses();
+
+		return $this;
+	}
+	/**
 	 * Run the before filter of the current controller
 	 *
 	 * @return $this CakeCeption
@@ -159,6 +188,20 @@ class CakeCeption {
 	{
 		if ( method_exists($this->controller, 'beforeFilter') ) {
 			$this->controller->beforeFilter();
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Run the before render of the current controller
+	 *
+	 * @return $this CakeCeption
+	 */
+	public function beforeRender()
+	{
+		if ( method_exists($this->controller, 'beforeRender') ) {
+			$this->controller->beforeRender();
 		}
 
 		return $this;
@@ -185,7 +228,7 @@ class CakeCeption {
 	 */
 	public function data(array $data)
 	{
-		$this->request->query = array_merge($this->request->query, $data);
+		$this->request->data = array_merge($this->request->data, $data);
 		
 		return $this;
 	}
@@ -263,6 +306,17 @@ class CakeCeption {
 		$string = explode('@', $string);
 
 		return ! isset($string[1]) ? 'index' : $string[1];
+	}
+
+	/**
+	 * Writes _SESSION variables
+	 *
+	 * @param string $key
+	 * @param string $value
+	 */
+	protected function writeSessionVars($key, $value)
+	{
+		$_SESSION[$key] = $value;
 	}
 
 	/**
