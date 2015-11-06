@@ -13,7 +13,8 @@ define('WWW_ROOT', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
     define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
 }
-require(ROOT . "/lib/Cake/bootstrap.php");
+
+require CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php';
 
 foreach(glob(ROOT . "/tests/cake/*.php") as $lib) {
     require $lib;
